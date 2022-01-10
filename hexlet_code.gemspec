@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["chjusp@gmail.com"]
 
   spec.summary = "rails-project-lvl1"
-  spec.homepage = "rails-project-lvl1"
+  spec.homepage = "https://github.com/Vasyll/rails-project-lvl1"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
