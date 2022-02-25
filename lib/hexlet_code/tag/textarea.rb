@@ -4,7 +4,7 @@ module HexletCode
   module Tag
     module Textarea
       def self.build(options = {})
-        tag = Array["<textarea"]
+        tag = Array['<textarea']
 
         name = options[:name]
         tag << " name=\"#{name}\"" unless name.nil?

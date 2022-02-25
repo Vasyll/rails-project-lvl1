@@ -4,7 +4,7 @@ module HexletCode
   module Tag
     module Label
       def self.build(options = {})
-        tag = Array["<label"]
+        tag = Array['<label']
 
         name = options[:for]
         tag << " for=\"#{name}\"" unless name.nil?
