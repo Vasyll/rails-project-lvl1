@@ -10,6 +10,6 @@ module HexletCode
   def self.form_for(user, url: '#')
     f = Form.new(user, url)
     yield(f)
-    f.get_form
+    f.html
   end
 end

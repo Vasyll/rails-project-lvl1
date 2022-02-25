@@ -5,8 +5,19 @@ module HexletCode
     module Input
       module Submit
         def self.build(options = {})
+          tag = Array['<input type="submit"']
+
+          name = options[:name]
+          tag << " name=\"#{name}\"" unless name.nil?
+
           value = options[:value]
-          return " value=\"#{value}\"" unless value.nil?
+          tag << " value=\"#{value}\"" unless value.nil?
+
+          attr_class = options[:class]
+          tag << " class=\"#{attr_class}\"" unless attr_class.nil?
+
+          tag << '>'
+          tag.join
         end
       end
     end

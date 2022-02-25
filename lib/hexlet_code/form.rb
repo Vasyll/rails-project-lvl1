@@ -28,7 +28,7 @@ class Form
     @form_html += HexletCode::Tag.build('input', type: 'submit', value: value)
   end
 
-  def get_form
+  def html
     "#{@form_html}</form>"
   end
 end
