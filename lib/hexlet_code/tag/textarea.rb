@@ -4,9 +4,17 @@ module HexletCode
   module Tag
     module Textarea
       def self.build(options = {})
-        tag = Array['<textarea cols="20" rows="40"']
+        tag = Array["<textarea"]
+
         name = options[:name]
-        tag << " name=\"#{name}\""
+        tag << " name=\"#{name}\"" unless name.nil?
+
+        rows = options[:rows]
+        tag << " rows=\"#{rows}\"" unless rows.nil?
+
+        cols = options[:cols]
+        tag << " cols=\"#{cols}\"" unless cols.nil?
+
         tag << ">#{yield}</textarea>"
         tag.join
       end

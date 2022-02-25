@@ -16,14 +16,16 @@ class Form
 
     case as
     when :text
-      @form_html += HexletCode::Tag.build("textarea", name: name) { value.to_s }
+      @form_html += HexletCode::Tag.build("textarea", name: name, cols: options[:cols], rows: options[:rows]) do
+        value.to_s
+      end
     when nil
-      @form_html += HexletCode::Tag.build("input", name: name, type: "text", value: value)
+      @form_html += HexletCode::Tag.build("input", name: name, type: "text", value: value, class: options[:class])
     end
   end
 
   def submit(value = "Save")
-    @form_html += HexletCode::Tag.build("input", name: "commit", type: "submit", value: value)
+    @form_html += HexletCode::Tag.build("input", type: "submit", value: value)
   end
 
   def get_form
