@@ -6,7 +6,7 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hexlet_code`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+HexletCode is a library for generating forms. It takes on tasks that usually require writing a lot of boilerplate code. This generator is similar in concept to Simple Form, but much simpler. 
 
 ## Installation
 
@@ -26,7 +26,51 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Example:
+
+```ruby
+User = Struct.new(:name, :job, keyword_init: true)
+```
+
+```ruby
+user = User.new name: 'rob'
+
+HexletCode.form_for user, url: '#' do |f|
+  f.input :name, class: 'user-input'
+  f.input :job
+  f.submit
+end
+```
+```html
+<form action="#" method="post">
+  <label for="name">Name</label>
+  <input type="text" name="name" value="rob" class="user-input">
+  <label for="job">Job</label>
+  <input type="text" name="job">
+  <input type="submit" value="Save">
+</form>
+```
+
+```ruby
+user = User.new job: 'hexlet'
+
+HexletCode.form_for user, url: '#' do |f|
+  f.input :name
+  f.input :job, as: :text, rows: 50, cols: 50
+  f.submit 'Wow'
+end
+```
+
+```html
+<form action="#" method="post">
+  <label for="name">Name</label>
+  <input type="text" name="name">
+  <label for="job">Job</label>
+  <textarea name="job" rows="50" cols="50">hexlet</textarea>
+  <input type="submit" value="Wow">
+</form>
+```
+
 
 ## Development
 
