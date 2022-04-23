@@ -14,32 +14,35 @@ class HexletCodeTest < Minitest::Test
   end
 
   def test_tag_generation_simple
-    assert_equal('<br>', HexletCode::Tag.build('br'))
-    assert_equal('<img src="path/to/image">', HexletCode::Tag.build('img', src: 'path/to/image'))
-    assert_equal('<div></div>', HexletCode::Tag.build('div'))
+    assert { HexletCode::Tag.build('br') == '<br>' }
+    assert { HexletCode::Tag.build('img', src: 'path/to/image') == '<img src="path/to/image">' }
+    assert { HexletCode::Tag.build('div') == '<div></div>' }
   end
 
   def test_tag_generation_input
-    assert_equal('<input type="submit" value="Save">', HexletCode::Tag.build('input', type: 'submit', value: 'Save'))
-    assert_equal('<input type="text">', HexletCode::Tag.build('input', type: 'text'))
-    assert_equal('<input type="text" class="user-input">',
-                 HexletCode::Tag.build('input', type: 'text', class: 'user-input'))
+    assert { HexletCode::Tag.build('input', type: 'submit', value: 'Save') == '<input type="submit" value="Save">' }
+    assert { HexletCode::Tag.build('input', type: 'text') == '<input type="text">' }
+    assert do
+      HexletCode::Tag.build('input', type: 'text', class: 'user-input') == '<input type="text" class="user-input">'
+    end
   end
 
   def test_tag_generation_label
-    assert_equal('<label>Email</label>', HexletCode::Tag.build('label') { 'Email' })
-    assert_equal('<label for="email">Email</label>', HexletCode::Tag.build('label', for: 'email') { 'Email' })
+    assert { HexletCode::Tag.build('label') { 'Email' } == '<label>Email</label>' }
+    assert { HexletCode::Tag.build('label', for: 'email') { 'Email' } == '<label for="email">Email</label>' }
   end
 
   def test_tag_generation_textarea
-    assert_equal('<textarea name="job">hexlet</textarea>', HexletCode::Tag.build('textarea', name: 'job') { 'hexlet' })
-    assert_equal('<textarea name="job" rows="20" cols="40">hexlet</textarea>',
-                 HexletCode::Tag.build('textarea', name: 'job', rows: 20, cols: 40) { 'hexlet' })
+    assert { HexletCode::Tag.build('textarea', name: 'job') { 'hexlet' } == '<textarea name="job">hexlet</textarea>' }
+    assert do
+      HexletCode::Tag.build('textarea', name: 'job', rows: 20, cols: 40) { 'hexlet' } ==
+        '<textarea name="job" rows="20" cols="40">hexlet</textarea>'
+    end
   end
 
   def test_form_generation_form
-    assert_equal(File.read('test/fixtures/form.html'), HexletCode.form_for(@user) { |f| }) # TODO
-    assert_equal(File.read('test/fixtures/form_path.html'), HexletCode.form_for(@user, url: '/users') { |f| }) # TODO
+    assert { HexletCode.form_for(@user) { |f| } == load_fixture('form.html') } # TODO
+    assert { HexletCode.form_for(@user, url: '/users') { |f| } == load_fixture('form_path.html') } # TODO
   end
 
   def test_form_generation_form1
@@ -48,7 +51,7 @@ class HexletCodeTest < Minitest::Test
       f.input :job
       f.submit
     end
-    assert_equal(File.read('test/fixtures/form_input.html'), form_input)
+    assert { form_input == load_fixture('form_input.html') }
   end
 
   def test_form_generation_form2
@@ -57,6 +60,6 @@ class HexletCodeTest < Minitest::Test
       f.input :job, as: :text, rows: 50, cols: 50
       f.submit 'OK'
     end
-    assert_equal(File.read('test/fixtures/form_input_textarea.html'), form_input_textarea)
+    assert { form_input_textarea == load_fixture('form_input_textarea.html') }
   end
 end
