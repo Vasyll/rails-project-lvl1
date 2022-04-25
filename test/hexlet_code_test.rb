@@ -32,6 +32,12 @@ class HexletCodeTest < Minitest::Test
     assert { HexletCode::Tag.build('label', for: 'email') { 'Email' } == '<label for="email">Email</label>' }
   end
 
+  def test_tag_generation_form
+    assert do
+      HexletCode::Tag.build('form', action: '/users', method: 'post') == '<form action="/users" method="post"></form>'
+    end
+  end
+
   def test_tag_generation_textarea
     assert { HexletCode::Tag.build('textarea', name: 'job') { 'hexlet' } == '<textarea name="job">hexlet</textarea>' }
     assert do
