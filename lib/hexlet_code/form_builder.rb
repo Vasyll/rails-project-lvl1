@@ -24,15 +24,11 @@ module HexletCode
     def self.build_input(options)
       form_html = ''
 
-      as = options[:as]
-      options.delete(:as)
-
-      name = options[:form_element_name]
-      options.delete(:form_element_name)
+      name = options.delete(:form_element_name)
       form_html += HexletCode::Tag.build('label', for: name) { name.capitalize.to_s }
 
-      value = options[:form_element_value]
-      options.delete(:form_element_value)
+      as = options.delete(:as)
+      value = options.delete(:form_element_value)
 
       case as
       when :text
@@ -46,8 +42,7 @@ module HexletCode
     end
 
     def self.build_submit(options)
-      value = options[:form_element_value]
-      options.delete(:form_element_value)
+      value = options.delete(:form_element_value)
 
       submit_options = { type: 'submit', value: value }
       HexletCode::Tag.build('input', submit_options.merge(options).compact)
