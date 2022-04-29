@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'pair_tag'
-
 module HexletCode
-  class SingleTag < HexletCode::PairTag
-    def self.build(tag, attributes = {}, &block)
-      html = []
-      html << yield.to_s if block_given?
-      html << tag_end_html(tag)
-      super(tag, attributes, &block) + html.join
+  class SingleTag
+    def self.build(tag, attributes = {})
+      "<#{tag}#{attributes_html(attributes)}>"
     end
 
-    def self.tag_end_html(tag)
-      Array["</#{tag}>"]
+    def self.attributes_html(attributes)
+      html = ''
+      return html if attributes.nil?
+
+      attributes.map { |key, value| html += " #{key}=\"#{value}\"" }
+      html
     end
   end
 end
