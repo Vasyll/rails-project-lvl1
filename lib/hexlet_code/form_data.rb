@@ -2,17 +2,17 @@
 
 module HexletCode
   class FormData
-    attr_reader :action, :form_units
+    attr_reader :options, :form_units
 
-    def initialize(record, action)
+    def initialize(record, options)
       @record = record
-      @action = action
+      @options = options
       @form_units = []
     end
 
     def input(name, options = {})
       form_unit = {}
-      form_unit[:form_element] = 'input'
+      form_unit[:as] = 'default' if form_unit[:as].nil?
 
       form_unit[:form_element_name] = name
       form_unit[:form_element_value] = @record.public_send(name)
@@ -24,10 +24,10 @@ module HexletCode
 
     def submit(value = 'Save')
       form_unit = {}
-      form_unit[:form_element] = 'submit'
+      form_unit[:as] = 'submit'
       form_unit[:form_element_value] = value
 
-      @form_units << form_unit
+      @form_units << form_unit.compact
     end
   end
 end

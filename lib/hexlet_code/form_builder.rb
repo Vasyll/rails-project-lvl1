@@ -1,49 +1,23 @@
 # frozen_string_literal: true
 
+require_relative 'form_elements'
+
 module HexletCode
+  autoload :Tag, 'hexlet_code/tag'
+
   class FormBuilder
     def self.build(form_data)
       form_html = ''
 
       form_data.form_units.each do |form_unit|
-        form_element = form_unit[:form_element]
-        form_unit.delete(:form_element)
+        form_element = form_unit[:as]
 
-        case form_element
-        when 'input'  then form_html += build_input(form_unit)
-        when 'submit' then form_html += build_submit(form_unit)
-        end
+        form_html += Object.const_get("HexletCode::#{form_element.capitalize}")&.build(form_unit.except(:as))
       end
 
-      form_options = { action: form_data.action, method: 'post' }
+      action = form_data.options[:url] || '#'
+      form_options = { action: action, method: 'post' }
       HexletCode::Tag.build('form', form_options) { form_html }
-    end
-
-    def self.build_input(options)
-      form_html = ''
-
-      name = options.delete(:form_element_name)
-      form_html += HexletCode::Tag.build('label', for: name) { name.capitalize.to_s }
-
-      as = options.delete(:as)
-      value = options.delete(:form_element_value)
-
-      case as
-      when :text
-        textarea_options = { name: name }
-        form_html += HexletCode::Tag.build('textarea', textarea_options.merge(options).compact) { value.to_s }
-      when nil
-        text_options = { type: 'text', name: name, value: value }
-        form_html += HexletCode::Tag.build('input', text_options.merge(options).compact)
-      end
-      form_html
-    end
-
-    def self.build_submit(options)
-      value = options.delete(:form_element_value)
-
-      submit_options = { type: 'submit', value: value }
-      HexletCode::Tag.build('input', submit_options.merge(options).compact)
     end
   end
 end

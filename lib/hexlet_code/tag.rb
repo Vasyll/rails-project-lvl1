@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module HexletCode
+  autoload :PairTag, 'hexlet_code/pair_tag'
+  autoload :SingleTag, 'hexlet_code/single_tag'
+
   module Tag
     @single_tag = %w[br img input]
 
