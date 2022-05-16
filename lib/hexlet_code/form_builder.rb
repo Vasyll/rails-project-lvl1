@@ -3,8 +3,6 @@
 require_relative 'form_elements'
 
 module HexletCode
-  autoload :Tag, 'hexlet_code/tag'
-
   class FormBuilder
     def self.build(form_data)
       form_html = ''
