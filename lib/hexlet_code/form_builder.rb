@@ -10,12 +10,18 @@ module HexletCode
       form_data.form_units.each do |form_unit|
         form_element = form_unit[:as]
 
-        form_html += Object.const_get("HexletCode::#{form_element.capitalize}")&.build(form_unit.except(:as))
+        class_name = Object.const_get("HexletCode::#{form_element.capitalize}")
+        form_html += class_name&.build(form_unit.except(:as))
       end
 
-      action = form_data.options[:url] || '#'
-      form_options = { action: action, method: 'post' }
-      HexletCode::Tag.build('form', form_options) { form_html }
+      HexletCode::Tag.build('form', form_options(form_data)) { form_html }
+    end
+
+    def self.form_options(form_data)
+      form_options = {}
+      form_options[:action] = form_data.options[:url] || '#'
+      form_options[:method] = 'post'
+      form_options.merge!(form_data.options.except(:url))
     end
   end
 end

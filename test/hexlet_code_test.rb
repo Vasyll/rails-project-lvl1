@@ -35,4 +35,13 @@ class HexletCodeTest < Minitest::Test
     end
     assert { form_input_textarea == load_fixture('form_input_textarea.html') }
   end
+
+  def test_form_generation_form3
+    form_input = HexletCode.form_for @user, method: :patch, class: 'my-awesome-form' do |f|
+      f.input :name, class: 'user-input'
+      f.input :job
+      f.submit
+    end
+    assert { form_input == load_fixture('form_input_patch.html') }
+  end
 end

@@ -12,7 +12,7 @@ module HexletCode
 
     def input(name, options = {})
       form_unit = {}
-      form_unit[:as] = 'default' if form_unit[:as].nil?
+      form_unit[:as] = 'default'
 
       form_unit[:form_element_name] = name
       form_unit[:form_element_value] = @record.public_send(name)

@@ -8,8 +8,6 @@ module HexletCode
 
     def self.attributes_html(attributes)
       html = ''
-      return html if attributes.nil?
-
       attributes.map { |key, value| html += " #{key}=\"#{value}\"" }
       html
     end
