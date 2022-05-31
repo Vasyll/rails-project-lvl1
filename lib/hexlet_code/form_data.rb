@@ -2,32 +2,32 @@
 
 module HexletCode
   class FormData
-    attr_reader :options, :form_units
+    attr_reader :options, :inputs
 
     def initialize(record, options)
       @record = record
       @options = options
-      @form_units = []
+      @inputs = []
     end
 
     def input(name, options = {})
-      form_unit = {}
-      form_unit[:as] = 'default'
+      input = {}
+      input[:as] = 'string'
 
-      form_unit[:form_element_name] = name
-      form_unit[:form_element_value] = @record.public_send(name)
+      input[:name] = name
+      input[:value] = @record.public_send(name)
 
-      form_unit.merge!(options)
+      input.merge!(options)
 
-      @form_units << form_unit.compact
+      @inputs << input.compact
     end
 
     def submit(value = 'Save')
-      form_unit = {}
-      form_unit[:as] = 'submit'
-      form_unit[:form_element_value] = value
+      input = {}
+      input[:as] = 'submit'
+      input[:value] = value
 
-      @form_units << form_unit.compact
+      @inputs << input.compact
     end
   end
 end

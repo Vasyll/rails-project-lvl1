@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'form_elements'
+require_relative 'inputs'
 
 module HexletCode
   class FormBuilder
     def self.build(form_data)
       form_html = ''
 
-      form_data.form_units.each do |form_unit|
-        form_element = form_unit[:as]
+      form_data.inputs.each do |input|
+        form_element = input[:as]
 
         class_name = Object.const_get("HexletCode::#{form_element.capitalize}")
-        form_html += class_name&.build(form_unit.except(:as))
+        form_html += class_name&.build(input.except(:as))
       end
 
       HexletCode::Tag.build('form', form_options(form_data)) { form_html }

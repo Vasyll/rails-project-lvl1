@@ -13,11 +13,6 @@ class HexletCodeTest < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-  def test_form_generation_form
-    assert { HexletCode.form_for(@user) { |f| } == load_fixture('form.html') } # TODO
-    assert { HexletCode.form_for(@user, url: '/users') { |f| } == load_fixture('form_path.html') } # TODO
-  end
-
   def test_form_generation_form1
     form_input = HexletCode.form_for @user do |f|
       f.input :name, class: 'user-input'
