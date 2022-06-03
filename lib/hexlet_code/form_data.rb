@@ -11,23 +11,23 @@ module HexletCode
     end
 
     def input(name, options = {})
-      input = {}
-      input[:as] = 'string'
-
-      input[:name] = name
-      input[:value] = @record.public_send(name)
-
+      input = {
+        as: :string,
+        name: name,
+        value: @record.public_send(name)
+      }
       input.merge!(options)
 
       @inputs << input.compact
     end
 
     def submit(value = 'Save')
-      input = {}
-      input[:as] = 'submit'
-      input[:value] = value
+      input = {
+        as: :submit,
+        value: value
+      }
 
-      @inputs << input.compact
+      @inputs << input
     end
   end
 end

@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
 module HexletCode
-  class Text < HexletCode::FormElement
-    def self.build(input_data)
-      name = input_data[:name]
-      form_html = build_label(name)
-
-      options = {
-        name: name
-      }
-
+  class Text < HexletCode::Input
+    def self.build_input(input_data)
       value = input_data[:value]
-      form_html + build_input('textarea', options, input_data) { value.to_s }
+      HexletCode::Tag.build('textarea', input_data.except(:value)) { value.to_s }
     end
   end
 end

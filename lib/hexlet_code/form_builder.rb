@@ -18,9 +18,11 @@ module HexletCode
     end
 
     def self.form_options(form_data)
-      form_options = {}
-      form_options[:action] = form_data.options[:url] || '#'
-      form_options[:method] = 'post'
+      form_options = {
+        action: form_data.options[:url] || '#',
+        method: :post
+      }
+
       form_options.merge!(form_data.options.except(:url))
     end
   end
