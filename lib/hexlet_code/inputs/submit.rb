@@ -2,11 +2,11 @@
 
 module HexletCode
   class Submit < HexletCode::Input
-    def self.build_input(input_data)
+    def build_input
       HexletCode::Tag.build('input', { type: 'submit' }.merge(input_data))
     end
 
-    def self.build_label(_name)
+    def build_label(_name)
       ''
     end
   end

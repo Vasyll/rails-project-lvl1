@@ -11,7 +11,7 @@ module HexletCode
         form_element = input[:as]
 
         class_name = Object.const_get("HexletCode::#{form_element.capitalize}")
-        form_html += class_name&.build(input.except(:as))
+        form_html += class_name.new(input.except(:as)).build if class_name
       end
 
       HexletCode::Tag.build('form', form_options(form_data)) { form_html }
