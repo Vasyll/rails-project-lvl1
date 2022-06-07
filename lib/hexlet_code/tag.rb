@@ -11,10 +11,9 @@ module HexletCode
     end
 
     def self.single(tag, attributes = {})
-      tag = Array["<#{tag}"]
-      attributes.each { |key, value| tag << " #{key}=\"#{value}\"" }
-      tag << '>'
-      tag.join
+      tag_attributes = []
+      attributes.each { |key, value| tag_attributes << " #{key}=\"#{value}\"" }
+      "<#{tag}#{tag_attributes.join}>"
     end
 
     def self.pair(tag, attributes = {}, &block)
